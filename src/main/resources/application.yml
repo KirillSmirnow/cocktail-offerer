@@ -5,3 +5,8 @@ spring:
     url: jdbc:postgresql://postgres:5432/main
     username: postgres
     password: ${POSTGRES_PASSWORD}
+cocktail-offerer:
+  bot:
+    username: ${BOT_USERNAME}
+    token: ${BOT_TOKEN}
+    permitted-chat-id: ${BOT_PERMITTED_CHAT_ID}

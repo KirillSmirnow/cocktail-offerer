@@ -40,8 +40,8 @@ public class CocktailCommandServiceImpl implements CocktailCommandService {
 
     @Override
     public Id<Integer> selectCocktailToCook() {
-        var notCookedCocktailsCount = entityManager.createQuery(
-                        "SELECT count() FROM Cocktail c WHERE c.available AND NOT c.cooked", Integer.class
+        var notCookedCocktailsCount = (int) (long) entityManager.createQuery(
+                        "SELECT count(c) FROM Cocktail c WHERE c.available AND NOT c.cooked", Long.class
                 )
                 .getSingleResult();
         var cocktailIndex = ThreadLocalRandom.current().nextInt(notCookedCocktailsCount);

@@ -6,9 +6,11 @@ services:
     environment:
       PROFILE:
       POSTGRES_PASSWORD:
-      BOT_USERNAME:
-      BOT_TOKEN:
-      BOT_PERMITTED_CHAT_ID:
+      TELEGRAM_BOT_USERNAME:
+      TELEGRAM_BOT_TOKEN:
+      TELEGRAM_BOT_PERMITTED_CHAT_ID:
+      VK_BOT_TOKEN:
+      VK_BOT_PERMITTED_CHAT_ID:
     ports:
       - ${MAIN_PORT:-0}:8080
   postgres:

@@ -45,7 +45,7 @@ public class BotMessageProcessorImpl implements BotMessageProcessor {
     private void processNextCommand(String chatId) {
         var nextCocktailId = cocktailCommandService.selectCocktailToCook();
         var nextCocktail = cocktailQueryService.getById(nextCocktailId.getValue());
-        botInfrastructure.sendTextWithNextButton(chatId, "Your next cocktail is <b>" + nextCocktail.getName() + "</b>");
+        botInfrastructure.sendTextWithNextButton(chatId, "Your next cocktail is " + nextCocktail.getName());
     }
 
     private void replyWithTerminationMessage(String chatId) {

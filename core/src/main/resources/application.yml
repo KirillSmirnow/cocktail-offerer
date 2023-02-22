@@ -8,6 +8,9 @@ spring:
 cocktail-offerer:
   bot:
     telegram:
-      username: ${BOT_USERNAME}
-      token: ${BOT_TOKEN}
-      permitted-chat-id: ${BOT_PERMITTED_CHAT_ID}
+      username: ${TELEGRAM_BOT_USERNAME}
+      token: ${TELEGRAM_BOT_TOKEN}
+      permitted-chat-id: ${TELEGRAM_BOT_PERMITTED_CHAT_ID}
+    vk:
+      token: ${VK_BOT_TOKEN}
+      permitted-chat-id: ${VK_BOT_PERMITTED_CHAT_ID}

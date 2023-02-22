@@ -11,9 +11,11 @@ jobs:
       PROFILE: prod
       MAIN_PORT: 37142
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-      BOT_USERNAME: ${{ secrets.BOT_USERNAME }}
-      BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-      BOT_PERMITTED_CHAT_ID: ${{ secrets.BOT_PERMITTED_CHAT_ID }}
+      TELEGRAM_BOT_USERNAME: ${{ secrets.TELEGRAM_BOT_USERNAME }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_BOT_PERMITTED_CHAT_ID: ${{ secrets.TELEGRAM_BOT_PERMITTED_CHAT_ID }}
+      VK_BOT_TOKEN: ${{ secrets.VK_BOT_TOKEN }}
+      VK_BOT_PERMITTED_CHAT_ID: ${{ secrets.VK_BOT_PERMITTED_CHAT_ID }}
     steps:
       - uses: actions/checkout@v2
       - run: ./mvnw install -DskipTests

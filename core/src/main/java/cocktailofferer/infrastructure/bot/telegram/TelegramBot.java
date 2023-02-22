@@ -1,7 +1,8 @@
-package cocktailofferer.infrastructure.bot;
+package cocktailofferer.infrastructure.bot.telegram;
 
+import cocktailofferer.service.bot.BotInfrastructure;
+import cocktailofferer.service.bot.BotMessageProcessor;
 import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -12,16 +13,15 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 
 import java.util.List;
 
-@Slf4j
-public class CocktailOffererBot extends TelegramLongPollingBot {
+public class TelegramBot extends TelegramLongPollingBot implements BotInfrastructure {
 
-    private final CocktailOffererBotProperties properties;
-    private final CocktailOffererBotDependencies dependencies;
+    private final TelegramBotProperties properties;
+    private final BotMessageProcessor botMessageProcessor;
 
-    public CocktailOffererBot(CocktailOffererBotProperties properties, CocktailOffererBotDependencies dependencies) {
+    public TelegramBot(TelegramBotProperties properties, BotMessageProcessor botMessageProcessor) {
         super(properties.getToken());
         this.properties = properties;
-        this.dependencies = dependencies;
+        this.botMessageProcessor = botMessageProcessor;
     }
 
     @Override
@@ -35,30 +35,12 @@ public class CocktailOffererBot extends TelegramLongPollingBot {
             return;
         }
         var chatId = Long.toString(message.getChatId());
-        if (!chatId.equals(properties.getPermittedChatId())) {
-            log.info("Unpermitted chat {}", chatId);
-            return;
-        }
-        processTextMessage(chatId, text);
+        botMessageProcessor.processTextMessage(chatId, text);
     }
 
-    private void processTextMessage(String chatId, String text) {
-        if (text.equals("/start")) {
-            dependencies.getCocktailCommandService().resetCookSelection();
-            sendTextWithNextButton(chatId, "Click on Next button to get your next cocktail");
-        } else if (text.equals("Next")) {
-            try {
-                var nextCocktailId = dependencies.getCocktailCommandService().selectCocktailToCook();
-                var nextCocktail = dependencies.getCocktailQueryService().getById(nextCocktailId.getValue());
-                sendTextWithNextButton(chatId, "Your next cocktail is <b>" + nextCocktail.getName() + "</b>");
-            } catch (Exception e) {
-                sendTextWithoutButtons(chatId, "All available cocktails have been cooked!");
-            }
-        }
-    }
-
+    @Override
     @SneakyThrows
-    private void sendTextWithNextButton(String chatId, String text) {
+    public void sendTextWithNextButton(String chatId, String text) {
         var sendMessage = new SendMessage(chatId, text);
         sendMessage.enableHtml(true);
         sendMessage.setReplyMarkup(new ReplyKeyboardMarkup(List.of(
@@ -69,11 +51,17 @@ public class CocktailOffererBot extends TelegramLongPollingBot {
         execute(sendMessage);
     }
 
+    @Override
     @SneakyThrows
-    private void sendTextWithoutButtons(String chatId, String text) {
+    public void sendTextWithoutButtons(String chatId, String text) {
         var sendMessage = new SendMessage(chatId, text);
         sendMessage.setReplyMarkup(new ReplyKeyboardRemove(true));
         execute(sendMessage);
+    }
+
+    @Override
+    public String getPermittedChatId() {
+        return properties.getPermittedChatId();
     }
 
     @Override

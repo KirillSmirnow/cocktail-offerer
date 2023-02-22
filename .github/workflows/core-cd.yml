@@ -9,7 +9,7 @@ jobs:
     runs-on: self-hosted
     env:
       PROFILE: prod
-      MAIN_PORT: 37142
+      MAIN_PORT: 38676
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       TELEGRAM_BOT_USERNAME: ${{ secrets.TELEGRAM_BOT_USERNAME }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}

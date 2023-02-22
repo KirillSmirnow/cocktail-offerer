@@ -1,0 +1,9 @@
+version: '3'
+services:
+  main:
+    build: .
+    restart: always
+    environment:
+      PORT:
+    ports:
+      - 127.0.0.1:${PORT:-80}:${PORT:-80}

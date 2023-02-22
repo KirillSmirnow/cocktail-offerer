@@ -12,7 +12,7 @@ services:
       VK_BOT_TOKEN:
       VK_BOT_PERMITTED_CHAT_ID:
     ports:
-      - ${MAIN_PORT:-0}:8080
+      - 127.0.0.1:${MAIN_PORT:-0}:8080
   postgres:
     image: postgis/postgis:12-3.1
     restart: always

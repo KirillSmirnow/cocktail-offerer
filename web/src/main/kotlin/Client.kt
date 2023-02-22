@@ -10,7 +10,7 @@ import kotlinx.browser.window
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 
-const val BASE_URL = "http://localhost:8080"
+const val BASE_URL = "https://comunicazione.art/api"
 
 val client = HttpClient {
     install(ContentNegotiation) {

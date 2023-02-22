@@ -1,0 +1,18 @@
+name: web/CD
+
+on:
+  push:
+    branches: main
+
+jobs:
+  cd:
+    runs-on: self-hosted
+    env:
+      PROFILE: prod
+      PORT: 28925
+    steps:
+      - uses: actions/checkout@v2
+      - run: ./gradlew build
+        working-directory: web
+      - run: docker-compose -p "cocktail-offerer-web_$PROFILE" up -d --build
+        working-directory: web

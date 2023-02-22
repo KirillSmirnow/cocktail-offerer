@@ -27,6 +27,9 @@ val client = HttpClient {
             }
         }
     }
+    defaultRequest {
+        basicAuth("user", window.localStorage.getItem("key") ?: "")
+    }
 }
 
 @Serializable

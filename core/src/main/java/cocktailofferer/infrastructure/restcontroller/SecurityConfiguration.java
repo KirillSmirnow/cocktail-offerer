@@ -13,7 +13,8 @@ public class SecurityConfiguration {
     @SneakyThrows
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
         return http.authorizeHttpRequests()
-                .anyRequest().permitAll()
+                .anyRequest().authenticated()
+                .and().httpBasic()
                 .and().csrf().disable()
                 .build();
     }

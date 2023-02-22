@@ -28,12 +28,27 @@ val CocktailItem = FC<CocktailItemProps> { props ->
         input {
             type = InputType.checkbox
             checked = props.cocktail.available
+            onChange = {
+                GlobalScope.launch {
+                    updateCocktail(props.cocktail, !props.cocktail.available)
+                    props.onRefresh()
+                }
+            }
             css {
                 margin = 1.px
             }
         }
         button {
             +"✏️"
+            onClick = {
+                val newName = window.prompt("Name", default = props.cocktail.name)
+                if (newName != null) {
+                    GlobalScope.launch {
+                        updateCocktail(props.cocktail, newName)
+                        props.onRefresh()
+                    }
+                }
+            }
             css {
                 margin = 1.px
             }

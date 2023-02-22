@@ -43,6 +43,12 @@ data class CocktailCreation(
     val available: Boolean,
 )
 
+@Serializable
+data class CocktailUpdate(
+    val name: String,
+    val available: Boolean,
+)
+
 suspend fun getCocktails(): List<Cocktail> {
     return client.get("$BASE_URL/cocktails").body()
 }
@@ -50,6 +56,20 @@ suspend fun getCocktails(): List<Cocktail> {
 suspend fun createCocktail(name: String) {
     client.post("$BASE_URL/cocktails") {
         setBody(CocktailCreation(name, available = true))
+        contentType(ContentType.Application.Json)
+    }
+}
+
+suspend fun updateCocktail(cocktail: Cocktail, newName: String) {
+    client.put("$BASE_URL/cocktails/${cocktail.id}") {
+        setBody(CocktailUpdate(name = newName, available = cocktail.available))
+        contentType(ContentType.Application.Json)
+    }
+}
+
+suspend fun updateCocktail(cocktail: Cocktail, newAvailable: Boolean) {
+    client.put("$BASE_URL/cocktails/${cocktail.id}") {
+        setBody(CocktailUpdate(name = cocktail.name, available = newAvailable))
         contentType(ContentType.Application.Json)
     }
 }

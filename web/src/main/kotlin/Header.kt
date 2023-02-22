@@ -2,6 +2,9 @@ import csstype.Display
 import csstype.number
 import csstype.px
 import emotion.react.css
+import kotlinx.browser.window
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML.button
@@ -9,6 +12,7 @@ import react.dom.html.ReactHTML.div
 
 external interface HeaderProps : Props {
     var cocktails: List<Cocktail>
+    var onRefresh: () -> Unit
 }
 
 val Header = FC<HeaderProps> { props ->
@@ -23,6 +27,15 @@ val Header = FC<HeaderProps> { props ->
         }
         button {
             +"➕"
+            onClick = {
+                val name = window.prompt("Name")
+                if (name != null) {
+                    GlobalScope.launch {
+                        createCocktail(name)
+                        props.onRefresh()
+                    }
+                }
+            }
         }
         css {
             display = Display.flex

@@ -4,6 +4,7 @@ import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
+import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.browser.window
 import kotlinx.serialization.Serializable
@@ -36,8 +37,21 @@ data class Cocktail(
     val cooked: Boolean,
 )
 
+@Serializable
+data class CocktailCreation(
+    val name: String,
+    val available: Boolean,
+)
+
 suspend fun getCocktails(): List<Cocktail> {
     return client.get("$BASE_URL/cocktails").body()
+}
+
+suspend fun createCocktail(name: String) {
+    client.post("$BASE_URL/cocktails") {
+        setBody(CocktailCreation(name, available = true))
+        contentType(ContentType.Application.Json)
+    }
 }
 
 suspend fun deleteCocktail(id: Int) {

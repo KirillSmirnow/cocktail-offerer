@@ -22,6 +22,7 @@ val Main = FC<Nothing> {
     div {
         Header {
             this.cocktails = cocktails
+            this.onRefresh = { cocktailsFetched = false }
         }
         hr {}
         CocktailList {

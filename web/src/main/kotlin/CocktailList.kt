@@ -4,6 +4,7 @@ import react.dom.html.ReactHTML.div
 
 external interface CocktailListProps : Props {
     var cocktails: List<Cocktail>
+    var onRefresh: () -> Unit
 }
 
 val CocktailList = FC<CocktailListProps> { props ->
@@ -11,6 +12,7 @@ val CocktailList = FC<CocktailListProps> { props ->
         div {
             CocktailItem {
                 this.cocktail = cocktail
+                this.onRefresh = props.onRefresh
             }
         }
     }

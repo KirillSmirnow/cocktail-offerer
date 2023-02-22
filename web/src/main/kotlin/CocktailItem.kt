@@ -2,6 +2,9 @@ import csstype.Display
 import csstype.number
 import csstype.px
 import emotion.react.css
+import kotlinx.browser.window
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import react.FC
 import react.Props
 import react.dom.html.InputType
@@ -11,6 +14,7 @@ import react.dom.html.ReactHTML.input
 
 external interface CocktailItemProps : Props {
     var cocktail: Cocktail
+    var onRefresh: () -> Unit
 }
 
 val CocktailItem = FC<CocktailItemProps> { props ->
@@ -36,6 +40,15 @@ val CocktailItem = FC<CocktailItemProps> { props ->
         }
         button {
             +"\uD83D\uDDD1"
+            onClick = {
+                val confirmed = window.confirm("Delete ${props.cocktail.name}?")
+                if (confirmed) {
+                    GlobalScope.launch {
+                        deleteCocktail(props.cocktail.id)
+                        props.onRefresh()
+                    }
+                }
+            }
             css {
                 margin = 1.px
             }

@@ -26,6 +26,7 @@ val Main = FC<Nothing> {
         hr {}
         CocktailList {
             this.cocktails = cocktails
+            this.onRefresh = { cocktailsFetched = false }
         }
         css {
             width = 350.px

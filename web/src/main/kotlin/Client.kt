@@ -39,3 +39,7 @@ data class Cocktail(
 suspend fun getCocktails(): List<Cocktail> {
     return client.get("$BASE_URL/cocktails").body()
 }
+
+suspend fun deleteCocktail(id: Int) {
+    client.delete("$BASE_URL/cocktails/$id")
+}

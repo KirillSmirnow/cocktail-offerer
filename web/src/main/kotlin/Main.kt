@@ -2,22 +2,33 @@ import csstype.Auto
 import csstype.pct
 import csstype.px
 import emotion.react.css
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import react.FC
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.hr
+import react.useState
 
 val Main = FC<Nothing> {
+    var cocktailsFetched: Boolean by useState(false)
+    var cocktails: List<Cocktail> by useState(emptyList())
+    GlobalScope.launch {
+        if (!cocktailsFetched) {
+            cocktails = getCocktails()
+            cocktailsFetched = true
+        }
+    }
+
     div {
-        div {
-            +"Cocktails"
+        Header {
+            this.cocktails = cocktails
         }
         hr {}
-        div {
-            CocktailList {
-            }
+        CocktailList {
+            this.cocktails = cocktails
         }
         css {
-            width = 500.px
+            width = 350.px
             height = 100.pct
             margin = Auto.auto
         }

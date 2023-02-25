@@ -18,11 +18,11 @@ public class ImageMetadata {
     private int id;
 
     @NotNull
-    @Size(min = 1, max = 250)
+    @Size(min = ImageMetadataConstraints.Key.MIN_SIZE, max = ImageMetadataConstraints.Key.MAX_SIZE)
     @Column(unique = true)
     private String key;
 
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = ImageMetadataConstraints.Name.MIN_SIZE, max = ImageMetadataConstraints.Name.MAX_SIZE)
     private String name;
 }

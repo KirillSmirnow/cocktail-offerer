@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 public class ImageMetadataCommandServiceImpl implements ImageMetadataCommandService {
     private final ImageMetadataRepository imageMetadataRepository;
 
+    @Override
     public CreateImageMetadataCommandResult create(CreateImageMetadataCommand command) {
         var imageMetadata = ImageMetadata.builder()
                 .name(command.name())

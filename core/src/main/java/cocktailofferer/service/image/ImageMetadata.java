@@ -20,7 +20,7 @@ public class ImageMetadata {
     @NotNull
     @Size(min = ImageMetadataConstraints.Key.MIN_SIZE, max = ImageMetadataConstraints.Key.MAX_SIZE)
     @Column(unique = true)
-    private String key;
+    private String imageKey;
 
     @NotNull
     @Size(min = ImageMetadataConstraints.Name.MIN_SIZE, max = ImageMetadataConstraints.Name.MAX_SIZE)

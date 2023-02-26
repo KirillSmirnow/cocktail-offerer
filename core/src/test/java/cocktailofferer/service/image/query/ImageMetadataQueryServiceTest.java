@@ -26,13 +26,13 @@ public class ImageMetadataQueryServiceTest {
 
         assertThat(actualImageMetadata.id()).isEqualTo(imageMetadata.getId());
         assertThat(actualImageMetadata.name()).isEqualTo(imageMetadata.getName());
-        assertThat(actualImageMetadata.key()).isEqualTo(imageMetadata.getKey());
+        assertThat(actualImageMetadata.key()).isEqualTo(imageMetadata.getImageKey());
     }
 
     private ImageMetadata createImageMetadata() {
         var imageMetadata = ImageMetadata.builder()
                 .id(1)
-                .key("key")
+                .imageKey("key")
                 .name("name")
                 .build();
         return imageMetadataRepository.save(imageMetadata);

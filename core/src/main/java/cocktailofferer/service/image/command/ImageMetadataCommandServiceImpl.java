@@ -15,13 +15,13 @@ public class ImageMetadataCommandServiceImpl implements ImageMetadataCommandServ
     public CreateImageMetadataCommandResult create(CreateImageMetadataCommand command) {
         var imageMetadata = ImageMetadata.builder()
                 .name(command.name())
-                .key(command.key())
+                .imageKey(command.key())
                 .build();
         imageMetadata = imageMetadataRepository.save(imageMetadata);
         return CreateImageMetadataCommandResult.builder()
                 .id(imageMetadata.getId())
                 .name(imageMetadata.getName())
-                .key(imageMetadata.getKey())
+                .key(imageMetadata.getImageKey())
                 .build();
     }
 }

@@ -17,7 +17,7 @@ public class ImageMetadataServiceQueryServiceImpl implements ImageMetadataQueryS
         return GetImageMetadataQueryResult.builder()
                 .id(imageMetadata.getId())
                 .name(imageMetadata.getName())
-                .key(imageMetadata.getKey())
+                .key(imageMetadata.getImageKey())
                 .build();
     }
 }

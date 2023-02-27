@@ -96,12 +96,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>3.1.2</version>
+                    <version>3.2.1</version>
                     <dependencies>
                         <dependency>
                             <groupId>com.puppycrawl.tools</groupId>
                             <artifactId>checkstyle</artifactId>
-                            <version>10.1</version>
+                            <version>10.8.0</version>
                         </dependency>
                     </dependencies>
                     <executions>
@@ -112,14 +112,15 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <configLocation>https://services.numdes.com/api/checkstyle-ruleset.xml</configLocation>
+                        <configLocation>../codestyle/checkstyle-ruleset.xml</configLocation>
+                        <includeTestSourceDirectory>true</includeTestSourceDirectory>
                     </configuration>
                 </plugin>
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-pmd-plugin</artifactId>
-                    <version>3.16.0</version>
+                    <version>3.20.0</version>
                     <executions>
                         <execution>
                             <goals>
@@ -130,8 +131,9 @@
                     </executions>
                     <configuration>
                         <rulesets>
-                            <ruleset>https://services.numdes.com/api/pmd-ruleset.xml</ruleset>
+                            <ruleset>../codestyle/pmd-ruleset.xml</ruleset>
                         </rulesets>
+                        <includeTests>true</includeTests>
                         <printFailingErrors>true</printFailingErrors>
                     </configuration>
                 </plugin>

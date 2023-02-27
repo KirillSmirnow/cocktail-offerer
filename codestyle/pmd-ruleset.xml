@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         name="PMD Rules"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+    <description>PMD Rules</description>
+
+    <rule ref="category/java/codestyle.xml">
+        <!-- final modifier worsens readability -->
+        <!-- Method arguments must be implicitly final -->
+        <!-- This is checked by "category/java/bestpractices.xml/AvoidReassigningParameters" -->
+        <exclude name="MethodArgumentCouldBeFinal"/>
+
+        <!-- final modifier worsens readability -->
+        <!-- Local variables should be implicitly final -->
+        <!-- Non-final local variables are highlighted by IDE -->
+        <exclude name="LocalVariableCouldBeFinal"/>
+
+        <exclude name="AtLeastOneConstructor"/>
+        <exclude name="CallSuperInConstructor"/>
+        <exclude name="ShortClassName"/>
+        <exclude name="ShortVariable"/>
+        <exclude name="OnlyOneReturn"/>
+    </rule>
+    <rule ref="category/java/codestyle.xml/ClassNamingConventions">
+        <properties>
+            <property name="utilityClassPattern" value="[A-Z][a-zA-Z0-9]*"/>
+        </properties>
+    </rule>
+    <rule ref="category/java/codestyle.xml/CommentDefaultAccessModifier">
+        <properties>
+            <property name="checkTopLevelTypes" value="true"/>
+        </properties>
+    </rule>
+    <rule ref="category/java/codestyle.xml/LongVariable">
+        <properties>
+            <property name="minimum" value="50"/>
+        </properties>
+    </rule>
+    <rule ref="category/java/codestyle.xml/MethodNamingConventions">
+        <properties>
+            <property name="junit5TestPattern" value="[a-z][a-zA-Z0-9_]*"/>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/design.xml">
+        <!-- Good, but contradicts Fluent Interface pattern (method chaining) -->
+        <exclude name="LawOfDemeter"/>
+
+        <exclude name="AvoidCatchingGenericException"/>
+    </rule>
+    <rule ref="category/java/design.xml/CyclomaticComplexity">
+        <properties>
+            <property name="methodReportLevel" value="11"/>
+        </properties>
+    </rule>
+    <rule ref="category/java/design.xml/UseUtilityClass">
+        <properties>
+            <property name="ignoredAnnotations" value="org.springframework.boot.autoconfigure.SpringBootApplication"/>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/bestpractices.xml">
+        <!-- Worsens readability -->
+        <exclude name="LiteralsFirstInComparisons"/>
+
+        <exclude name="GuardLogStatement"/>
+        <exclude name="JUnit5TestShouldBePackagePrivate"/>
+        <exclude name="JUnitTestsShouldIncludeAssert"/>
+        <exclude name="JUnitAssertionsShouldIncludeMessage"/>
+    </rule>
+    <rule ref="category/java/bestpractices.xml/JUnitTestContainsTooManyAsserts">
+        <properties>
+            <property name="maximumAsserts" value="5"/>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/performance.xml">
+        <exclude name="AvoidInstantiatingObjectsInLoops"/>
+    </rule>
+
+    <rule ref="category/java/multithreading.xml"/>
+    <rule ref="category/java/security.xml"/>
+</ruleset>

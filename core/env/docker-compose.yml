@@ -31,7 +31,7 @@ services:
       MINIO_ROOT_PASSWORD:
     command: server --console-address ":9001" /data
     volumes:
-      - minio
+      - minio:/data
 volumes:
   postgres:
   minio:
